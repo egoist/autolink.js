@@ -56,9 +56,9 @@ autoLink(text, {embed: true})
 
 ## Embed
 
-Feel free to make a request for supporting a embed-able link
+Feel free to send a PR for supporting more embed-able links.
 
-Now we supports:
+Now we support:
 
 - Youtube, eg `https://www.youtube.com/watch?v=5vOAxP-u5KA`
 - Kickstarter, eg: `https://www.kickstarter.com/projects/1546683916/treasures-of-the-universe-unique-astrophotography?ref=home_popular`
