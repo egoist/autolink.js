@@ -21,7 +21,7 @@ autoLink(text)
 // instead of using <img> tag
 autoLink(text, {image: false})
 // link-ify and add DOM attributes
-autoLink(text: {
+autoLink(text, {
   pattern: '[a-zA-Z0-9]',
   'data-lazyload': true
 })
