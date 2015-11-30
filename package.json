@@ -1,0 +1,27 @@
+{
+  "name": "autolink.js",
+  "version": "0.0.1",
+  "description": "Auto-link url and images",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --require should test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egoist/autolink.js.git"
+  },
+  "keywords": [
+    "autolink",
+    "js"
+  ],
+  "author": "EGOIST",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/egoist/autolink.js/issues"
+  },
+  "homepage": "https://github.com/egoist/autolink.js#readme",
+  "devDependencies": {
+    "mocha": "^2.3.4",
+    "should": "^7.1.1"
+  }
+}
