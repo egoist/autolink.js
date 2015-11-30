@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --require should test.js",
-    "uglify": "uglifyjs index.js -o autolink.min.js",
-    "prepublish": "npm run uglify"
+    "uglify": "uglifyjs index.js -o autolink.min.js"
   },
   "repository": {
     "type": "git",
