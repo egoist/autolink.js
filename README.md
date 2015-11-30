@@ -25,6 +25,11 @@ autoLink(text, {
   pattern: '[a-zA-Z0-9]',
   'data-lazyload': true
 })
+// show URL path only for normal links
+// eg: 'http://github.com' is transformed to
+// '<a href="http://github.com">github.com</a>'
+// wow, without `http://` in the text
+autoLink(text, {removeHTTP: true})
 ```
 
 ## License
