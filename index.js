@@ -4,10 +4,16 @@
     this.string = string
     this.options = options
     this.attrs = ''
-    for (var key in this.options) {
-      if (key && key !== 'image' && key !== 'removeHTTP') {
-        this.attrs += (' ' + key + '="' + this.options[key] + '"')
-      }
+    this.linkAttr = ''
+    this.imageAttr = ''
+    if (this.options.sharedAttr) {
+      this.attrs = getAttr(this.options.sharedAttr)
+    }
+    if (this.options.linkAttr) {
+      this.linkAttr = getAttr(this.options.linkAttr)
+    }
+    if (this.options.imageAttr) {
+      this.imageAttr = getAttr(this.options.imageAttr)
     }
   }
 
@@ -25,7 +31,7 @@
     formatURLMatch: function (match, p1) {
       match = match.trim()
       var text = this.options.removeHTTP ? removeHTTP(match) : match
-      return p1 + '<a href="' + prepHTTP(match) + '"' + this.attrs + '>' + text + '</a>'
+      return p1 + '<a href="' + prepHTTP(match) + '"' + this.attrs + this.linkAttr + '>' + text + '</a>'
 
     },
     formatIMGMatch: function (match, p1) {
@@ -33,7 +39,7 @@
       var imgRe = /\.(jpe?g|png|gif)$/
       var isIMG = imgRe.test(match)
       if (isIMG) {
-        return p1 + '<img src="' + prepHTTP(match.trim()) + '"' + this.attrs + '/>'
+        return p1 + '<img src="' + prepHTTP(match.trim()) + '"' + this.attrs + this.imageAttr + '/>'
       }
       return this.formatURLMatch(match, p1)
     }
@@ -41,6 +47,16 @@
 
   function defaultTrue (val) {
     return (typeof val === 'undefined') ? true : val
+  }
+
+  function getAttr (obj) {
+    var attr = ''
+    for (var key in obj) {
+      if (key) {
+        attr += (' ' + key + '="' + obj[key] + '"')
+      }
+    }
+    return attr
   }
 
   function prepHTTP (url) {

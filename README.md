@@ -22,8 +22,18 @@ autoLink(text)
 autoLink(text, {image: false})
 // link-ify and add DOM attributes
 autoLink(text, {
-  pattern: '[a-zA-Z0-9]',
-  'data-lazyload': true
+  // add attributes for image only
+  imageAttr: {
+    'data-image': true
+  },
+  // add attributes for link only
+  linkAttr: {
+    'data-link': true
+  },
+  // add attributes for both
+  sharedAttr: {
+    'data-shared': true
+  }
 })
 // show URL path only for normal links
 // eg: 'http://github.com' is transformed to
