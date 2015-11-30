@@ -1,4 +1,11 @@
 (function () {
+  /**
+   * AutoLink constructor function
+   *
+   * @param {String} text
+   * @param {Object} options
+   * @constructor
+   */
   function AutoLink (string, options) {
     options = options || {}
     this.string = string
@@ -19,6 +26,11 @@
 
   AutoLink.prototype = {
     constructor: AutoLink,
+    /**
+     * call relative functions to parse url/email/image
+     *
+     * @returns {String}
+     */
     parse: function () {
       var shouldReplaceImage = defaultTrue(this.options.image)
       var shouldRelaceEmail = defaultTrue(this.options.email)
@@ -34,12 +46,20 @@
       }
       return result
     },
+    /**
+     * @param {String} match
+     * @returns {String} Offset 1
+     */
     formatURLMatch: function (match, p1) {
       match = match.trim()
       var text = this.options.removeHTTP ? removeHTTP(match) : match
       return p1 + '<a href="' + prepHTTP(match) + '"' + this.attrs + this.linkAttr + '>' + text + '</a>'
 
     },
+    /**
+     * @param {String} match
+     * @param {String} Offset 1
+     */
     formatIMGMatch: function (match, p1) {
       match = match.trim()
       var imgRe = /\.(jpe?g|png|gif)$/
@@ -49,16 +69,32 @@
       }
       return this.formatURLMatch(match, p1)
     },
+    /**
+     * @param {String} text
+     */
     formatEmailMatch: function (text) {
       var emailRe = /[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?/gi
       return text.replace(emailRe, '<a href="mailto:$&"' + this.attrs + this.linkAttr + '>$&</a>')
     }
   }
 
+  /**
+   * return true if undefined
+   * else return itself
+   *
+   * @param {Boolean} val
+   * @returns {Boolean}
+   */
   function defaultTrue (val) {
     return (typeof val === 'undefined') ? true : val
   }
 
+  /**
+   * parse attrs from object
+   *
+   * @param {Object} obj
+   * @returns {Stirng}
+   */
   function getAttr (obj) {
     var attr = ''
     for (var key in obj) {
@@ -69,6 +105,10 @@
     return attr
   }
 
+  /**
+   * @param {String} url
+   * @returns {String}
+   */
   function prepHTTP (url) {
     if (url.substring(0, 4) !== 'http' && url.substring(0, 2) !== '//') {
       return 'http://' + url
@@ -76,10 +116,21 @@
     return url
   }
 
+  /**
+   * @param {String} url
+   * @returns {String}
+   */
   function removeHTTP (url) {
     return url.replace(/.*?:\/\//g, '')
   }
 
+  /**
+   * return an instance of AutoLink
+   *
+   * @param {String} string
+   * @param {Object} options
+   * @returns {Object}
+   */
   function autoLink (string, options) {
     return new AutoLink(string, options).parse()
   }

@@ -1,10 +1,12 @@
 {
   "name": "autolink.js",
-  "version": "0.0.3",
+  "version": "0.0.31",
   "description": "Auto-link url and images",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require should test.js"
+    "test": "mocha --require should test.js",
+    "uglify": "uglifyjs index.js -o autolink.min.js",
+    "prepublish": "npm run uglify"
   },
   "repository": {
     "type": "git",

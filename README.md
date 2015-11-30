@@ -4,6 +4,8 @@ Auto-link url and images in text.
 
 ## Installation
 
+CDN: https://npmcdn.com/autolink.js/autolink.min.js
+
 ```bash
 npm install --save autolink.js
 ```
