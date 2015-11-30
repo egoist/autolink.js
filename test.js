@@ -46,4 +46,10 @@ describe('main', () => {
     autoLink(string).should.equal(result)
     done()
   })
+  it('test br', done => {
+    const string = 'what\r\nif\nyou like me'
+    const result = 'what<br />if<br />you like me'
+    autoLink(string).should.equal(result)
+    done()
+  })
 })

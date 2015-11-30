@@ -1,6 +1,6 @@
 # autolink.js [![Build Status](https://img.shields.io/circleci/project/egoist/autolink.js/master.svg?style=flat-square)](https://circleci.com/gh/egoist/autolink.js/tree/master)
 
-Auto-link url and images in text.
+Auto-link url and images, email, `<br/>` in text.
 
 ## Installation
 
@@ -20,7 +20,9 @@ import autoLink from 'autolink.js'
 autoLink(text, {
   // default options:
   email: true,
-  image: true
+  image: true,
+  // \n to <br/>
+  br: true
 })
 // link URL only
 // then it would regard image address as normal link using <a>

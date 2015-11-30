@@ -34,6 +34,7 @@
     parse: function () {
       var shouldReplaceImage = defaultTrue(this.options.image)
       var shouldRelaceEmail = defaultTrue(this.options.email)
+      var shouldRelaceBr = defaultTrue(this.options.br)
 
       var urlWithImageRe = /(\s?)(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi
       var result
@@ -44,6 +45,9 @@
       }
       if (shouldRelaceEmail) {
         result = this.formatEmailMatch.call(this, result)
+      }
+      if (shouldRelaceBr) {
+        result = result.replace(/\r?\n/g, '<br />')
       }
       return result
     },

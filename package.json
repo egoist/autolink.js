@@ -1,6 +1,6 @@
 {
   "name": "autolink.js",
-  "version": "0.0.33",
+  "version": "0.0.4",
   "description": "Auto-link url and images",
   "main": "index.js",
   "scripts": {
