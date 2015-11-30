@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Autolink.js</title>
+    <style>
+      body {
+        margin: 0;
+        font: 15px/1.7 Helvetica, serif;
+      }
+      h1 {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      h1 a {
+        text-decoration: none;
+        color: #333;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      .top,.bottom {
+        height: 50vmin;
+        text-align: center;
+        position: relative;
+      }
+      .top {
+        background-color: #f0f0f0;
+      }
+      .input,.output {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        height: 50%;
+        width: 300px;
+        padding: 8px 12px;
+        outline: none;
+        font-size: 15px;
+      }
+      .output {
+        border: none;
+        text-align: left;
+        padding: 0;
+        word-wrap: break-word;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="top">
+      <h1><a href="https://github.com/egoist/autolink.js">autolink.js</a></h1>
+      <textarea class="input">I don't think it's 0x142857@gmail.com all that bad https://twitter.com/shomin_sample to be surrounded by people http://www.less-real.com/imagevault/uploaded/imagessolidthumbnails/Zen-Wistalia-23209.jpg who don't care much about authority or social status. It's good to know that there are various various ways of thinking.</textarea>
+    </section>
+    <section class="bottom">
+      <div class="output"></div>
+    </section>
+    <script src="https://npmcdn.com/autolink.js/autolink.min.js"></script>
+    <script>
+      (function () {
+        var $ = document.querySelector.bind(document)
+        render()
+        function render () {
+          var result = autoLink($('.input').value)
+          $('.output').innerHTML = result
+        }
+        $('.input').addEventListener('input', render)
+      })();
+    </script>
+  </body>
+</html>

@@ -34,7 +34,8 @@
     parse: function () {
       var shouldReplaceImage = defaultTrue(this.options.image)
       var shouldRelaceEmail = defaultTrue(this.options.email)
-      var urlWithImageRe = new RegExp('(\\s?)((http|https|ftp)://([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-_]*)*\/?)', 'gim')
+
+      var urlWithImageRe = /(\s?)(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi
       var result
       if (!shouldReplaceImage) {
         result = this.string.replace(urlWithImageRe, this.formatURLMatch.bind(this))

@@ -40,4 +40,10 @@ describe('main', () => {
     autoLink(string).should.equal(result)
     done()
   })
+  it('test dash', done => {
+    const string = 'dash url http://what.com/dash-url/haha ok'
+    const result = 'dash url <a href="http://what.com/dash-url/haha">http://what.com/dash-url/haha</a> ok'
+    autoLink(string).should.equal(result)
+    done()
+  })
 })
