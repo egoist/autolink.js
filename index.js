@@ -1,5 +1,5 @@
 (function () {
-  function Autolink (string, options) {
+  function AutoLink (string, options) {
     options = options || {}
     this.string = string
     this.options = options
@@ -11,8 +11,8 @@
     }
   }
 
-  Autolink.prototype = {
-    constructor: Autolink,
+  AutoLink.prototype = {
+    constructor: AutoLink,
     parse: function () {
       var shouldReplaceImage = defaultTrue(this.options.image)
       var urlWithImageRe = new RegExp('(\\s?)((http|https|ftp)://([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-_]*)*\/?)', 'gim')
@@ -22,26 +22,20 @@
         return this.string.replace(urlWithImageRe, this.formatIMGMatch.bind(this))
       }
     },
-    formatURLMatch: function (match) {
+    formatURLMatch: function (match, p1) {
       match = match.trim()
       var text = this.options.removeHTTP ? removeHTTP(match) : match
-      return [
-        ' <a href="' + prepHTTP(match) + '"' + this.attrs + '>',
-        text,
-        '</a> '
-      ].join('')
+      return p1 + '<a href="' + prepHTTP(match) + '"' + this.attrs + '>' + text + '</a>'
+
     },
-    formatIMGMatch: function (match) {
+    formatIMGMatch: function (match, p1) {
       match = match.trim()
       var imgRe = /\.(jpe?g|png|gif)$/
       var isIMG = imgRe.test(match)
       if (isIMG) {
-        return [
-          '<img src="' + prepHTTP(match.trim()) + '"' + this.attrs + '/>'
-        ].join('')
+        return p1 + '<img src="' + prepHTTP(match.trim()) + '"' + this.attrs + '/>'
       }
-
-      return this.formatURLMatch(match)
+      return this.formatURLMatch(match, p1)
     }
   }
 
@@ -60,13 +54,13 @@
     return url.replace(/.*?:\/\//g, '')
   }
 
-  function autolink (string, options) {
-    return new Autolink(string, options).parse()
+  function autoLink (string, options) {
+    return new AutoLink(string, options).parse()
   }
 
   if (typeof module !== 'undefined') {
-    module.exports = autolink
+    module.exports = autoLink
   } else if (typeof window !== 'undefined') {
-    window.VueAutolink = autolink
+    window.autoLink = autoLink
   }
 })();
