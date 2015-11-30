@@ -21,12 +21,18 @@
     constructor: AutoLink,
     parse: function () {
       var shouldReplaceImage = defaultTrue(this.options.image)
+      var shouldRelaceEmail = defaultTrue(this.options.email)
       var urlWithImageRe = new RegExp('(\\s?)((http|https|ftp)://([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-_]*)*\/?)', 'gim')
+      var result
       if (!shouldReplaceImage) {
-        return this.string.replace(urlWithImageRe, this.formatURLMatch.bind(this))
+        result = this.string.replace(urlWithImageRe, this.formatURLMatch.bind(this))
       } else {
-        return this.string.replace(urlWithImageRe, this.formatIMGMatch.bind(this))
+        result = this.string.replace(urlWithImageRe, this.formatIMGMatch.bind(this))
       }
+      if (shouldRelaceEmail) {
+        result = this.formatEmailMatch.call(this, result)
+      }
+      return result
     },
     formatURLMatch: function (match, p1) {
       match = match.trim()
@@ -42,6 +48,10 @@
         return p1 + '<img src="' + prepHTTP(match.trim()) + '"' + this.attrs + this.imageAttr + '/>'
       }
       return this.formatURLMatch(match, p1)
+    },
+    formatEmailMatch: function (text) {
+      var emailRe = /[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?/gi
+      return text.replace(emailRe, '<a href="mailto:$&"' + this.attrs + this.linkAttr + '>$&</a>')
     }
   }
 
