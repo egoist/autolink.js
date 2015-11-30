@@ -12,10 +12,14 @@ npm install --save autolink.js
 
 ```javascript
 import autoLink from 'autolink.js'
-// link URL and Images
+// link URL and Images/Emails
 // normal link is transformed to <a>
 // image address(png|gif|jpe?g) is transformed to <img>
-autoLink(text)
+autoLink(text, {
+  // default options:
+  email: true,
+  image: true
+})
 // link URL only
 // then it would regard image address as normal link using <a>
 // instead of using <img> tag
