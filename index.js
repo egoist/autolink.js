@@ -1,4 +1,13 @@
 (function () {
+  var re = {
+    http: /.*?:\/\//g,
+    url: /(\s|^)((https?|ftp):\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\w-\/\?\=\#\.])*/gi,
+    image: /\.(jpe?g|png|gif)$/,
+    email: /[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?/gi,
+    cloudmusic: /http:\/\/music\.163\.com\/#\/song\?id=(\d+)/i,
+    kickstarter: /(https?:\/\/www\.kickstarter\.com\/projects\/\d+\/[a-zA-Z0-9_-]+)(\?\w+\=\w+)?/i,
+    youtube: /https?:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)(\?\w+\=\w+)?/i,
+  }
   /**
    * AutoLink constructor function
    *
@@ -36,12 +45,11 @@
       var shouldRelaceEmail = defaultTrue(this.options.email)
       var shouldRelaceBr = defaultTrue(this.options.br)
 
-      var urlWithImageRe = /(\s?)(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi
-      var result
+      var result = ''
       if (!shouldReplaceImage) {
-        result = this.string.replace(urlWithImageRe, this.formatURLMatch.bind(this))
+        result = this.string.replace(re.url, this.formatURLMatch.bind(this))
       } else {
-        result = this.string.replace(urlWithImageRe, this.formatIMGMatch.bind(this))
+        result = this.string.replace(re.url, this.formatIMGMatch.bind(this))
       }
       if (shouldRelaceEmail) {
         result = this.formatEmailMatch.call(this, result)
@@ -56,10 +64,33 @@
      * @returns {String} Offset 1
      */
     formatURLMatch: function (match, p1) {
-      match = match.trim()
+      match = prepHTTP(match.trim())
+      if (this.options.cloudmusic || this.options.embed) {
+        if (match.indexOf('music.163.com/#/song?id=') > -1) {
+          return match.replace(
+            re.cloudmusic,
+            p1 + '<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="http://music.163.com/outchain/player?type=2&id=$1&auto=1&height=66"></iframe>'
+          )
+        }
+      }
+      if (this.options.kickstarter || this.options.embed) {
+        if (re.kickstarter.test(match)) {
+          return match.replace(
+            re.kickstarter,
+            p1 + '<iframe width="480" height="360" src="$1/widget/video.html" frameborder="0" scrolling="no"> </iframe>'
+          )
+        }
+      }
+      if (this.options.youtube || this.options.embed) {
+        if (re.youtube.test(match)) {
+          return match.replace(
+            re.youtube,
+            p1 + '<iframe width="560" height="315" src="https://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>'
+          )
+        }
+      }
       var text = this.options.removeHTTP ? removeHTTP(match) : match
-      return p1 + '<a href="' + prepHTTP(match) + '"' + this.attrs + this.linkAttr + '>' + text + '</a>'
-
+      return p1 + '<a href="' + match + '"' + this.attrs + this.linkAttr + '>' + text + '</a>'
     },
     /**
      * @param {String} match
@@ -67,8 +98,7 @@
      */
     formatIMGMatch: function (match, p1) {
       match = match.trim()
-      var imgRe = /\.(jpe?g|png|gif)$/
-      var isIMG = imgRe.test(match)
+      var isIMG = re.image.test(match)
       if (isIMG) {
         return p1 + '<img src="' + prepHTTP(match.trim()) + '"' + this.attrs + this.imageAttr + '/>'
       }
@@ -78,8 +108,7 @@
      * @param {String} text
      */
     formatEmailMatch: function (text) {
-      var emailRe = /[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?/gi
-      return text.replace(emailRe, '<a href="mailto:$&"' + this.attrs + this.linkAttr + '>$&</a>')
+      return text.replace(re.email, '<a href="mailto:$&"' + this.attrs + this.linkAttr + '>$&</a>')
     }
   }
 
@@ -126,7 +155,7 @@
    * @returns {String}
    */
   function removeHTTP (url) {
-    return url.replace(/.*?:\/\//g, '')
+    return url.replace(re.http, '')
   }
 
   /**

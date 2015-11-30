@@ -1,6 +1,6 @@
 # autolink.js [![Build Status](https://img.shields.io/circleci/project/egoist/autolink.js/master.svg?style=flat-square)](https://circleci.com/gh/egoist/autolink.js/tree/master)
 
-Auto-link url and images, email, `<br/>` in text.
+Auto-link url and images, email, video, music, `<br/>` in text.
 
 ## Installation
 
@@ -15,6 +15,7 @@ npm install --save autolink.js
 ```javascript
 import autoLink from 'autolink.js'
 // link URL and Images/Emails
+// `https?://` is optional
 // normal link is transformed to <a>
 // image address(png|gif|jpe?g) is transformed to <img>
 autoLink(text, {
@@ -48,7 +49,20 @@ autoLink(text, {
 // '<a href="http://github.com">github.com</a>'
 // wow, without `http://` in the text
 autoLink(text, {removeHTTP: true})
+// enable to transform all embedable url
+// eg: youtube/kickstarter/cloudmusic
+autoLink(text, {embed: true})
 ```
+
+## Embed
+
+Feel free to make a request for supporting a embed-able link
+
+Now we supports:
+
+- Youtube, eg `https://www.youtube.com/watch?v=5vOAxP-u5KA`
+- Kickstarter, eg: `https://www.kickstarter.com/projects/1546683916/treasures-of-the-universe-unique-astrophotography?ref=home_popular`
+- Cloudmusic, eg: `http://music.163.com/#/song?id=36103237`
 
 ## License
 
