@@ -7,6 +7,7 @@
     cloudmusic: /http:\/\/music\.163\.com\/#\/song\?id=(\d+)/i,
     kickstarter: /(https?:\/\/www\.kickstarter\.com\/projects\/\d+\/[a-zA-Z0-9_-]+)(\?\w+\=\w+)?/i,
     youtube: /https?:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)(\?\w+\=\w+)?/i,
+    youku: /https?:\/\/v\.youku\.com\/v_show\/id_([a-zA-Z0-9_\=-]+).html(\?\w+\=\w+)?(\#\w+)?/i,
   }
   /**
    * AutoLink constructor function
@@ -86,6 +87,14 @@
           return match.replace(
             re.youtube,
             p1 + '<iframe width="560" height="315" src="https://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>'
+          )
+        }
+      }
+      if (this.options.youku || this.options.embed) {
+        if (re.youku.test(match)) {
+          return match.replace(
+            re.youku,
+            p1 + '<iframe height=498 width=510 src="http://player.youku.com/embed/$1" frameborder=0 allowfullscreen></iframe>'
           )
         }
       }

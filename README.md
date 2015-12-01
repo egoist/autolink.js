@@ -63,6 +63,7 @@ Now we support:
 - Youtube, eg `https://www.youtube.com/watch?v=5vOAxP-u5KA`
 - Kickstarter, eg: `https://www.kickstarter.com/projects/1546683916/treasures-of-the-universe-unique-astrophotography?ref=home_popular`
 - Cloudmusic, eg: `http://music.163.com/#/song?id=36103237`
+- Youku, eg `http://v.youku.com/v_show/id_XMTQwMDUzODM0MA==.html?f=23710673#paction`
 
 ## License
 

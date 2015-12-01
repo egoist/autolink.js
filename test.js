@@ -76,4 +76,10 @@ describe('main', () => {
     autoLink(string, {youtube: true}).should.equal(result)
     done()
   })
+  it('replace youku', done => {
+    const string = 'a  http://v.youku.com/v_show/id_XMTQwMDUzODM0MA==.html?f=23710673#paction b'
+    const result = 'a  <iframe height=498 width=510 src="http://player.youku.com/embed/XMTQwMDUzODM0MA==" frameborder=0 allowfullscreen></iframe> b'
+    autoLink(string, {youku: true}).should.equal(result)
+    done()
+  })
 })
