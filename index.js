@@ -18,7 +18,7 @@
    */
   function AutoLink (string, options) {
     options = options || {}
-    this.string = string
+    this.string = options.safe ? safe_tags_replace(string) : string
     this.options = options
     this.attrs = ''
     this.linkAttr = ''
@@ -165,6 +165,32 @@
    */
   function removeHTTP (url) {
     return url.replace(re.http, '')
+  }
+
+  var tagsToReplace = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;'
+  }
+
+  /**
+   * Replace tag if should be replace
+   *
+   * @param {String} tag
+   * @returns {String}
+   */
+  function replaceTag(tag) {
+      return tagsToReplace[tag] || tag
+  }
+
+  /**
+   * Make string safe by replacing html tag
+   *
+   * @param {String} str
+   * @returns {String}
+   */
+  function safe_tags_replace(str) {
+      return str.replace(/[&<>]/g, replaceTag)
   }
 
   /**

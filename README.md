@@ -51,7 +51,15 @@ autoLink(text, {
 autoLink(text, {removeHTTP: true})
 // enable to transform all embedable url
 // eg: youtube/kickstarter/cloudmusic
-autoLink(text, {embed: true})
+autoLink(text, {
+  // enable all
+  embed: true,
+  // or just enable some of them
+  youtube: true,
+  kickstarter: true
+})
+// escape HTML tags, false by default
+autoLink(text, {safe: true})
 ```
 
 ## Embed

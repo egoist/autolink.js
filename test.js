@@ -82,4 +82,9 @@ describe('main', () => {
     autoLink(string, {youku: true}).should.equal(result)
     done()
   })
+  it('replace html tag', done => {
+    const string = '<script>'
+    console.log(autoLink(string, {safe: true}))
+    done()
+  })
 })

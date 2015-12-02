@@ -1,12 +1,13 @@
 {
   "name": "autolink.js",
-  "version": "0.0.53",
+  "version": "0.0.54",
   "description": "Auto-link url and images",
   "main": "index.js",
   "scripts": {
     "test": "mocha --require should test.js",
     "uglify": "uglifyjs index.js -o autolink.min.js",
-    "demo": "surge -d autolink.surge.sh -p ./"
+    "demo": "surge -d autolink.surge.sh -p ./",
+    "serve": "npm run uglify && serve ./"
   },
   "repository": {
     "type": "git",
