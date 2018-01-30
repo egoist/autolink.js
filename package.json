@@ -7,7 +7,7 @@
     "dist"
   ],
   "scripts": {
-    "test": "mocha --require should test.js",
+    "test": "jest --env node",
     "build": "bili --format umd,umd-min --name autolink --moduleName autoLink",
     "prepublishOnly": "npm run build"
   },
@@ -26,8 +26,9 @@
   },
   "homepage": "https://github.com/egoist/autolink.js#readme",
   "devDependencies": {
+    "babel-jest": "^22.1.0",
+    "babel-preset-env": "^1.6.1",
     "bili": "^2.2.6",
-    "mocha": "^2.3.4",
-    "should": "^7.1.1"
+    "jest-cli": "^22.1.4"
   }
 }
