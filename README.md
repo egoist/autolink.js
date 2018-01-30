@@ -4,7 +4,7 @@ Auto-link url and images, email, video, music, `<br/>` in text.
 
 ## Installation
 
-CDN: https://unpkg.com/autolink.js/autolink.min.js
+CDN: https://unpkg.com/autolink.js/dist/autolink.min.js
 
 ```bash
 npm install --save autolink.js

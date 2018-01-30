@@ -2,12 +2,14 @@
   "name": "autolink.js",
   "version": "0.0.54",
   "description": "Auto-link url and images",
-  "main": "index.js",
+  "main": "dist/autolink.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "mocha --require should test.js",
-    "uglify": "uglifyjs index.js -o autolink.min.js",
-    "demo": "surge -d autolink.surge.sh -p ./",
-    "serve": "npm run uglify && serve ./"
+    "build": "bili --format umd,umd-min --name autolink --moduleName autoLink",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,7 @@
   },
   "homepage": "https://github.com/egoist/autolink.js#readme",
   "devDependencies": {
+    "bili": "^2.2.6",
     "mocha": "^2.3.4",
     "should": "^7.1.1"
   }
