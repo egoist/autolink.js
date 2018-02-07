@@ -6,6 +6,7 @@ const re = {
   cloudmusic: /http:\/\/music\.163\.com\/#\/song\?id=(\d+)/i,
   kickstarter: /(https?:\/\/www\.kickstarter\.com\/projects\/\d+\/[a-zA-Z0-9_-]+)(\?\w+\=\w+)?/i,
   youtube: /https?:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)(\?\w+\=\w+)?/i,
+  vimeo: /https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/[^\/]*\/videos\/|album\/\d+\/video\/|video\/|)(\d+)(?:$|\/|\?)/i,
   youku: /https?:\/\/v\.youku\.com\/v_show\/id_([a-zA-Z0-9_\=-]+).html(\?\w+\=\w+)?(\#\w+)?/i
 }
 /**
@@ -79,6 +80,15 @@ AutoLink.prototype = {
           re.kickstarter,
           p1 +
             '<iframe width="480" height="360" src="$1/widget/video.html" frameborder="0" scrolling="no"> </iframe>'
+        )
+      }
+    }
+    if (this.options.vimeo || this.options.embed) {
+      if (re.vimeo.test(match)) {
+        return match.replace(
+          re.vimeo,
+          p1 +
+            '<iframe width="500" height="281" src="https://player.vimeo.com/video/$1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
         )
       }
     }
