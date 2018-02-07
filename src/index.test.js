@@ -61,6 +61,11 @@ describe('main', () => {
     const result = 'a  <iframe width="560" height="315" src="https://www.youtube.com/embed/5vOAxP-u5KA" frameborder="0" allowfullscreen></iframe> b'
     expect(autoLink(string, {youtube: true})).toBe(result)
   })
+  it('replace vimeo', () => {
+    const string = 'a  https://vimeo.com/channels/staffpicks/253396666 b'
+    const result = 'a  <iframe width="500" height="281" src="https://player.vimeo.com/video/253396666" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> b'
+    expect(autoLink(string, {vimeo: true})).toBe(result)
+  })
   it('replace youku', () => {
     const string = 'a  http://v.youku.com/v_show/id_XMTQwMDUzODM0MA==.html?f=23710673#paction b'
     const result = 'a  <iframe height=498 width=510 src="http://player.youku.com/embed/XMTQwMDUzODM0MA==" frameborder=0 allowfullscreen></iframe> b'
