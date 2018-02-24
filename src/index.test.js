@@ -6,6 +6,11 @@ describe('main', () => {
     const result = '<a href="http://github.com/egoist">http://github.com/egoist</a>, image <a href="http://twitter.com/shomin_sample.jpg">http://twitter.com/shomin_sample.jpg</a> no i@google.com'
     expect(autoLink(string, {image: false, email: false})).toBe(result)
   })
+  it('test ellipses in text', () => {
+    const string = 'sigh... lets github.com/egoist, image twitter.com/shomin_sample.jpg no i@google.com'
+    const result = 'sigh... lets <a href="http://github.com/egoist">http://github.com/egoist</a>, image <a href="http://twitter.com/shomin_sample.jpg">http://twitter.com/shomin_sample.jpg</a> no i@google.com'
+    expect(autoLink(string, {image: false, email: false})).toBe(result)
+  })
   it('replace only url', () => {
     const string = 'http://github.com/egoist, image http://twitter.com/shomin_sample.jpg no i@google.com'
     const result = '<a href="http://github.com/egoist">http://github.com/egoist</a>, image <a href="http://twitter.com/shomin_sample.jpg">http://twitter.com/shomin_sample.jpg</a> no i@google.com'
